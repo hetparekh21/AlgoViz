@@ -6,6 +6,8 @@ public abstract class AlgoViz {
 
     char[][] map;
     final char DESTINATION = '$', SOURCE = '@', PATH = '*', SPACE = ' ';
+    final String DESTINATION_COLOR = Color.RED_BOLD, SOURCE_COLOR = Color.BLUE_BOLD, PATH_COLOR = Color.PURPLE, MAP_COLOR = Color.WHITE_BOLD;
+    final String ALGO_COLOR = Color.WHITE_BOLD;
     String POPULATE;
     int N;
     Scanner sc = new Scanner(System.in);
@@ -21,7 +23,7 @@ public abstract class AlgoViz {
 
         int algo = sc.nextInt();
 
-        switch (algo){
+        switch (algo) {
             case Bfs.CODE:
                 algoViz = new Bfs();
                 break;
@@ -87,11 +89,11 @@ public abstract class AlgoViz {
 
         // clear the terminal before printing
         clearConsole();
-        System.out.println("Algo : " + this.getAlgo());
+        System.out.println("Algo : " + ALGO_COLOR + this.getAlgo() + Color.RESET);
         System.out.println();
 
         // column
-        System.out.print("    ");
+        System.out.print(MAP_COLOR + "    ");
         for (int i = 0; i < map.length; i++) {
             System.out.print(i + " ");
         }
@@ -102,28 +104,38 @@ public abstract class AlgoViz {
         for (int i = 0; i < map.length; i++) {
             System.out.print("_" + " ");
         }
-        System.out.println();
+        System.out.println(Color.RESET);
 
 
         for (int i = 0; i < map.length; i++) {
 
             // left border
-            System.out.print(i + " " + '|' + " ");
+            System.out.print(MAP_COLOR + i + " " + '|' + " " + Color.RESET);
 
             for (int j = 0; j < map[0].length; j++) {
-                System.out.print(map[i][j] + " ");
+                char tem = map[i][j];
+                if (tem == DESTINATION) {
+                    System.out.print(DESTINATION_COLOR + tem + " ");
+                } else if (tem == SOURCE) {
+                    System.out.print(SOURCE_COLOR + tem + " ");
+                } else if (tem == PATH) {
+                    System.out.print(PATH_COLOR + tem + " ");
+                } else {
+                    System.out.print(tem + " ");
+                }
+                System.out.print(Color.RESET);
             }
 
             // right border
-            System.out.println('|');
+            System.out.println(MAP_COLOR + '|' + Color.RESET);
         }
 
         // bottom border
         System.out.print("    ");
         for (int i = 0; i < map.length; i++) {
-            System.out.print("_" + " ");
+            System.out.print(MAP_COLOR + "_" + " ");
         }
-        System.out.println();
+        System.out.println(Color.RESET);
     }
 
     public void initMap() {
@@ -190,12 +202,11 @@ public abstract class AlgoViz {
 
     abstract void end();
 
-
     abstract String getAlgo();
 
     public void sleep() {
         try {
-            TimeUnit.MILLISECONDS.sleep(100);
+            TimeUnit.MILLISECONDS.sleep(50);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

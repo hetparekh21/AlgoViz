@@ -1,7 +1,6 @@
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.concurrent.TimeUnit;
 
 public class Bfs extends AlgoViz{
 
@@ -29,10 +28,6 @@ public class Bfs extends AlgoViz{
 
             sleep();
 
-            if (isDestination(xy)) {
-                break;
-            }
-
             markPath(xy);
             markVisited(visited, xy);
             nodesVisited++;
@@ -40,6 +35,10 @@ public class Bfs extends AlgoViz{
             for (int i = 0; i < 4; i++) {
                 int[] new_xy = new int[]{xy[0] + x[i], xy[1] + y[i]};
                 if (isValid(new_xy) && !isVisited(visited, new_xy)) {
+                    if(isDestination(new_xy)){
+                        printMap();
+                        return;
+                    }
                     queue.add(new_xy);
                 }
             }
@@ -53,8 +52,6 @@ public class Bfs extends AlgoViz{
     @Override
     void start(int[] source) {
         this.bfs(source);
-        System.out.println();
-        System.out.println( "Nodes Visited : " + nodesVisited);
     }
 
     @Override

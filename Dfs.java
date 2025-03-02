@@ -1,7 +1,6 @@
 import java.util.HashSet;
-import java.util.concurrent.TimeUnit;
 
-public class Dfs extends AlgoViz{
+public class Dfs extends AlgoViz {
 
     static final int CODE = 2;
     static final String ALGO = "DFS";
@@ -12,18 +11,13 @@ public class Dfs extends AlgoViz{
 
     public void dfs(int[] source) {
 
-        if (FOUND){
-            return;
-        }
-
-        if(this.isDestination(source)){
-            FOUND = true;
+        if (FOUND) {
             return;
         }
 
         sleep();
 
-        markVisited(visited,source);
+        markVisited(visited, source);
         nodesVisited++;
         markPath(source);
         printMap();
@@ -31,12 +25,25 @@ public class Dfs extends AlgoViz{
         int[] x = {0, 1, 0, -1};
         int[] y = {-1, 0, 1, 0};
 
-        for(int i = 0 ; i < 4 ; i++){
+        // check if any neighboring space is the destination
+        for (int i = 0; i < 4; i++) {
             int[] xy = new int[]{source[0] + x[i], source[1] + y[i]};
-            if(isValid(xy) && !isVisited(visited,xy)){
+            if (isValid(xy) && !isVisited(visited, xy)) {
+                FOUND = isDestination(xy);
+            }
+        }
+
+        if (FOUND) {
+            return;
+        }
+
+        // visit the neighboring nodes
+        for (int i = 0; i < 4; i++) {
+            int[] xy = new int[]{source[0] + x[i], source[1] + y[i]};
+            if (isValid(xy) && !isVisited(visited, xy)) {
                 dfs(xy);
             }
-            if(FOUND){
+            if (FOUND) {
                 return;
             }
         }
