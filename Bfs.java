@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -7,6 +8,8 @@ public class Bfs extends AlgoViz{
     static final int CODE = 1;
     static final String ALGO = "BFS";
 
+    private HashMap<String,String> parent = new HashMap<>();
+    private String found;
     private int nodesVisited = 0;
     public void bfs(int[] source) {
 
@@ -17,6 +20,7 @@ public class Bfs extends AlgoViz{
 
         Queue<int[]> queue = new LinkedList<>();
         queue.add(source);
+        parent.put(source[0]+","+source[1],null);
 
         while (!queue.isEmpty()) {
 
@@ -32,13 +36,17 @@ public class Bfs extends AlgoViz{
             markVisited(visited, xy);
             nodesVisited++;
 
+            String par = xy[0] + "," + xy[1];
+
             for (int i = 0; i < 4; i++) {
                 int[] new_xy = new int[]{xy[0] + x[i], xy[1] + y[i]};
                 if (isValid(new_xy) && !isVisited(visited, new_xy)) {
                     if(isDestination(new_xy)){
-                        printMap();
+                        found = new_xy[0] + "," + new_xy[1];
+                        parent.put(new_xy[0] + "," + new_xy[1],par);
                         return;
                     }
+                    parent.put(new_xy[0] + "," + new_xy[1],par);
                     queue.add(new_xy);
                 }
             }
@@ -49,19 +57,40 @@ public class Bfs extends AlgoViz{
 
     }
 
+
+
     @Override
-    void start(int[] source) {
+    public void start(int[] source) {
+        System.out.println("Press Enter to start");
+        sc.nextLine();
+        sc.nextLine();
         this.bfs(source);
     }
 
     @Override
-    void end() {
+    public void markFinalPath() {
+
+        String par = found;
+
+        while(par != null){
+            String[] cord = par.split(",");
+            int[] coordinate = new int[]{Integer.parseInt(cord[0]),Integer.parseInt(cord[1])};
+            markFinalPath(coordinate);
+            par = parent.get(par);
+        }
+
+    }
+
+    @Override
+    public void end() {
+
+        printMap();
         System.out.println();
         System.out.println("Nodes Visited : " + nodesVisited);
     }
 
     @Override
-    String getAlgo() {
+    public String getAlgo() {
         return ALGO;
     }
 

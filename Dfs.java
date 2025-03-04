@@ -52,7 +52,15 @@ public class Dfs extends AlgoViz {
 
     @Override
     void start(int[] source) {
+        System.out.println("Press Enter to start");
+        sc.nextLine();
+        sc.nextLine();
         this.dfs(source);
+    }
+
+    @Override
+    void markFinalPath() {
+
     }
 
     @Override

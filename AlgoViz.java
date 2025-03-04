@@ -5,8 +5,8 @@ import java.util.concurrent.TimeUnit;
 public abstract class AlgoViz {
 
     char[][] map;
-    final char DESTINATION = '$', SOURCE = '@', PATH = '*', SPACE = ' ';
-    final String DESTINATION_COLOR = Color.RED_BOLD, SOURCE_COLOR = Color.BLUE_BOLD, PATH_COLOR = Color.PURPLE, MAP_COLOR = Color.WHITE_BOLD;
+    final char DESTINATION = '$', SOURCE = '@', PATH = '*', SPACE = ' ', FINAL_PATH = '+';
+    final String DESTINATION_COLOR = Color.RED_BOLD, SOURCE_COLOR = Color.BLUE_BOLD, PATH_COLOR = Color.PURPLE, MAP_COLOR = Color.WHITE_BOLD, FINAL_PATH_COLOR = Color.WHITE_BOLD;
     final String ALGO_COLOR = Color.WHITE_BOLD;
     String POPULATE;
     int N;
@@ -58,6 +58,9 @@ public abstract class AlgoViz {
         // start the process
         algoViz.start(source);
 
+        // mark final path
+        algoViz.markFinalPath();
+
         // end the process
         algoViz.end();
 
@@ -72,8 +75,14 @@ public abstract class AlgoViz {
     }
 
     public void markPath(int[] coordinate) {
-        if (map[coordinate[0]][coordinate[1]] != SOURCE) {
+        if (map[coordinate[0]][coordinate[1]] != SOURCE && map[coordinate[0]][coordinate[1]] != DESTINATION) {
             map[coordinate[0]][coordinate[1]] = PATH;
+        }
+    }
+
+    public void markFinalPath(int[] coordinate) {
+        if (map[coordinate[0]][coordinate[1]] != SOURCE && map[coordinate[0]][coordinate[1]] != DESTINATION) {
+            map[coordinate[0]][coordinate[1]] = FINAL_PATH;
         }
     }
 
@@ -115,15 +124,17 @@ public abstract class AlgoViz {
             for (int j = 0; j < map[0].length; j++) {
                 char tem = map[i][j];
                 if (tem == DESTINATION) {
-                    System.out.print(DESTINATION_COLOR + tem + " ");
+                    System.out.print(DESTINATION_COLOR + tem);
                 } else if (tem == SOURCE) {
-                    System.out.print(SOURCE_COLOR + tem + " ");
+                    System.out.print(SOURCE_COLOR + tem);
                 } else if (tem == PATH) {
-                    System.out.print(PATH_COLOR + tem + " ");
+                    System.out.print(PATH_COLOR + tem);
+                } else if (tem == FINAL_PATH) {
+                    System.out.print( FINAL_PATH_COLOR + tem);
                 } else {
-                    System.out.print(tem + " ");
+                    System.out.print(tem);
                 }
-                System.out.print(Color.RESET);
+                System.out.print(" " + Color.RESET);
             }
 
             // right border
@@ -199,6 +210,8 @@ public abstract class AlgoViz {
     }
 
     abstract void start(int[] source);
+
+    abstract void markFinalPath();
 
     abstract void end();
 
