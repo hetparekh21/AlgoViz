@@ -20,7 +20,7 @@ public class Bfs extends AlgoViz{
 
         Queue<int[]> queue = new LinkedList<>();
         queue.add(source);
-        parent.put(source[0]+","+source[1],null);
+//        parent.put(source[0]+","+source[1],null);
 
         while (!queue.isEmpty()) {
 
@@ -43,7 +43,7 @@ public class Bfs extends AlgoViz{
                 if (isValid(new_xy) && !isVisited(visited, new_xy)) {
                     if(isDestination(new_xy)){
                         found = new_xy[0] + "," + new_xy[1];
-                        parent.put(new_xy[0] + "," + new_xy[1],par);
+                        parent.put(found,par);
                         return;
                     }
                     parent.put(new_xy[0] + "," + new_xy[1],par);
@@ -51,7 +51,7 @@ public class Bfs extends AlgoViz{
                 }
             }
 
-            printMap();
+            printMap(map);
 
         }
 
@@ -84,7 +84,7 @@ public class Bfs extends AlgoViz{
     @Override
     public void end() {
 
-        printMap();
+        printMap(map);
         System.out.println();
         System.out.println("Nodes Visited : " + nodesVisited);
     }
