@@ -1,10 +1,10 @@
 # AlgoViz (Terminal-Based Algorithm Visualizer)
 
-AlgoViz is a simple terminal-based Algorithm Visualizer implemented in Java. It operates on a **matrix-based search space**, providing a step-by-step visualization of various traversal and pathfinding algorithms.
+AlgoViz is a simple terminal-based Algorithm Visualizer implemented in Java. It operates on a **matrix and binary tree-based search space**, providing a step-by-step visualization of various traversal and pathfinding algorithms.
 
 ## Features
 
-- **Visualizes different traversal and pathfinding algorithms** in a matrix grid.
+- **Visualizes different traversal and pathfinding algorithms** in a matrix grid and binary tree.
 - **Displays real-time step-by-step traversal output** in the terminal.
 - **Customizable matrix input** (size, source, and destination).
 - **Interactive and simple user interface**.
@@ -27,18 +27,14 @@ AlgoViz is a simple terminal-based Algorithm Visualizer implemented in Java. It 
 
 ## Usage
 
-1. Run the visualizer:
+#### Run the visualizer:
    ```sh
-   java AlgoViz
+    java Main
    ```
-2. Input the **matrix size** as prompted.
-3. Enter the **source (`@`) and destination (`$`) positions**.
-4. Choose an algorithm from the menu.
-5. View the **step-by-step traversal visualization** in the terminal.
 
 ## Algorithms Implemented
 
-- Breadth-First Search (BFS)'
+- Breadth-First Search (BFS)
 - Depth-First Search (DFS)
 
 ## Contributing
